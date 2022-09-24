@@ -1,0 +1,31 @@
+from flask import Flask
+import random
+
+random_number = random.randint(0, 9)
+print(random_number)
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def home():
+    return '<h1 style="text-align: center">0  менен 9-дун ортосундагы санды таап кѳрчү<h1>' \
+           '<img src="https://media.giphy.com/media/abHQ4aDqRqlyBTdAP0/giphy.gif" width=600>'
+
+
+@app.route("/<int:guess>")
+def guess_number(guess):
+    if guess > random_number:
+        return "<h1 style='color: purple'>Ѳтѳ ѳйдѳ болуп кетти окшойт, дагы бир таап кѳрчү!</h1>" \
+               "<img src='https://media.giphy.com/media/7CSTvj5PzNfWQTGi5p/giphy.gif'/>"
+
+    elif guess < random_number:
+        return "<h1 style='color: red'>Адбан эле ылдый болуп калды го,  кайра табууга аракет кылсаң да!</h1>" \
+               "<img src='https://media.giphy.com/media/yL8hk8DIXEgthvkmAb/giphy.gif'/>"
+
+    else:
+        return "<h1 style='color: green'>Дал ѳзун таптың да!</h1>" \
+               "<img src='https://media.giphy.com/media/l41lXXInI3blsA9LW/giphy.gif'/>"
+
+if __name__ == "__main__":
+        app.run(debug=True)
